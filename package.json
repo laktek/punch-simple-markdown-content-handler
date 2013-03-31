@@ -1,0 +1,35 @@
+{
+  "name": "punch-simple-markdown-content-handler",
+  "description": "A simple markdown only content handler for Punch without JSON files or extended directories",
+  "keywords": [
+    "punch",
+    "content-handler",
+		"markdown"
+  ],
+  "version": "0.0.1",
+  "homepage": "https://github.com/laktek/simple-markdown-content-handler",
+	"author": {
+    "name": "Lakshan Perera",
+    "email": "lakshan@web2media.net",
+    "url": "http://laktek.com"
+  }
+  "licenses": "MIT",
+  "bugs": {
+    "url": "http://github.com/laktek/simple-markdown-content-handler/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/laktek/simple-markdown-content-handler.git"
+  },
+  "main": "./lib/simple_markdown_content_handler",
+  "dependencies": {
+    "punch" : ">= 0.5.19",
+  },
+  "devDependencies": {
+    "jasmine-node": ">= 1.0.26",
+    "jshint": ">= 0.9.1"
+  },
+  "scripts": {
+    "test": "jasmine-node spec"
+  }
+}
