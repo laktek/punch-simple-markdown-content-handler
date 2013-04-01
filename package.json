@@ -12,7 +12,7 @@
     "name": "Lakshan Perera",
     "email": "lakshan@web2media.net",
     "url": "http://laktek.com"
-  }
+  },
   "licenses": "MIT",
   "bugs": {
     "url": "http://github.com/laktek/simple-markdown-content-handler/issues"
@@ -23,7 +23,7 @@
   },
   "main": "./lib/simple_markdown_content_handler",
   "dependencies": {
-    "punch" : ">= 0.5.19",
+    "punch" : ">= 0.5.19"
   },
   "devDependencies": {
     "jasmine-node": ">= 1.0.26",
