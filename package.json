@@ -4,11 +4,11 @@
   "keywords": [
     "punch",
     "content-handler",
-		"markdown"
+    "markdown"
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/laktek/simple-markdown-content-handler",
-	"author": {
+  "author": {
     "name": "Lakshan Perera",
     "email": "lakshan@web2media.net",
     "url": "http://laktek.com"
@@ -23,7 +23,7 @@
   },
   "main": "./lib/simple_markdown_content_handler",
   "dependencies": {
-    "punch" : ">= 0.5.19"
+    "punch": ">= 0.5.19"
   },
   "devDependencies": {
     "jasmine-node": ">= 1.0.26",
