@@ -128,33 +128,40 @@ describe("get content paths", function() {
 describe("get contents", function() {
 	beforeEach(function() {
 		var fakeParser = jasmine.createSpy();
+		fakeParser.andCallFake(function(content, callback) {
+			return callback(null, content);
+		});
 		simple_markdown_content_handler.parser = { parse: fakeParser };
 	});
 
-	it("set the page title from the filename", function() {
-		spyOn(default_content_handler, "getSharedContent").andCallFake(function(callback) {
-			return callback(null, {}, new Date(2012, 10, 20));
+	it("invoke the callback with parsed content, last modified and title for a regular page", function() {
+		var markdown_content = "markdown content";
+		var last_modified = new Date(2013, 3, 1);
+
+		spyOn(fs, "stat").andCallFake(function(file_path, callback) {
+			return callback(null, { "mtime": last_modified });
+		});
+
+		spyOn(fs, "readFile").andCallFake(function(file_path, callback) {
+			return callback(null, new Buffer(markdown_content));
 		});
 
 		var spyCallback = jasmine.createSpy();
-		simple_markdown_content_handler.getContent("/this-is-the-title", ".html", {}, spyCallback);
+		simple_markdown_content_handler.getContent("path/sub/test_page", spyCallback);
 
-		expect(spyCallback).toHaveBeenCalledWith(null, { "title" : "This is the title" }, {}, jasmine.any(Date));
+		var parents_obj = [ { 'title': 'Path', 'url': '/path' }, { 'title': 'Sub', 'url': '/path/sub' } ];
+		expect(spyCallback).toHaveBeenCalledWith(null, { 'content': markdown_content, 'last_modified': last_modified, 'title': 'Test Page', 'parents': parents_obj }, new Date(2013, 3, 1));
 	});
 
-	it("set the last updated date", function() {
+	it("invoke the callback with an error, if file not found", function() {
+		spyOn(fs, "stat").andCallFake(function(file_path, callback) {
+			return callback(new Error('not found'));
+		});
 
+		var spyCallback = jasmine.createSpy();
+		simple_markdown_content_handler.getContent("path/test_page", spyCallback);
+
+		expect(spyCallback).toHaveBeenCalledWith(new Error('not found'));
 	});
 
-	it("set the parent paths", function() {
-
-	});
-
-	it("read and parse the markown file for the given path", function() {
-
-	});
-
-	it("render cotnent list for index pages", function() {
-
-	});
 });
