@@ -16,23 +16,29 @@ describe("setup", function() {
 		}
 	};
 
-	it("set the content directory", function(){
+	beforeEach(function() {
 		spyOn(module_utils, "requireAndSetup").andCallFake(function(id, config){
-			return {"id": id};
+			return { "id": id, "supportedExtensions": [".markdown", ".md"] };
 		});
+	});
 
+	it("set the content directory", function(){
 		simple_markdown_content_handler.setup(sample_config);
 		expect(simple_markdown_content_handler.contentDir).toEqual("content_dir");
 	});
 
 	it("setup the markdown parser", function(){
-		spyOn(module_utils, "requireAndSetup").andCallFake(function(id, config){
-			return { "id": id, "supportedExtensions": [".markdown", ".md"] };
-		});
-
 		simple_markdown_content_handler.setup(sample_config);
 		expect(simple_markdown_content_handler.parser).toEqual({"id": "sample_markdown_parser", "supportedExtensions": [".markdown", ".md"] });
 	});
+
+	it("delegate setup to default content handler", function() {
+		spyOn(default_content_handler, "setup");
+
+		simple_markdown_content_handler.setup(sample_config);
+		expect(default_content_handler.setup).toHaveBeenCalledWith(sample_config);
+	});
+
 });
 
 describe("is section", function() {
